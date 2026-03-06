@@ -1,9 +1,10 @@
 const express = require('express');
 const healthController = require('../controllers/health');
+const todosRoutes = require('./todos');
 
 const router = express.Router();
-// Health endpoint
 
+// Health endpoint
 /**
  * @swagger
  * /:
@@ -31,5 +32,8 @@ const router = express.Router();
  *                   example: development
  */
 router.get('/', healthController.check.bind(healthController));
+
+// Todos REST API
+router.use('/todos', todosRoutes);
 
 module.exports = router;

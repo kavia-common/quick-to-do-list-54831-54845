@@ -47,9 +47,13 @@ app.use('/', routes);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({
+
+  const statusCode = Number(err.statusCode) || 500;
+  const message = statusCode === 500 ? 'Internal Server Error' : (err.message || 'Error');
+
+  res.status(statusCode).json({
     status: 'error',
-    message: 'Internal Server Error',
+    message,
   });
 });
 
